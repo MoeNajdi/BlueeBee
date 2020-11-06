@@ -3,6 +3,9 @@ import pygame
 
 from settings import Settings
 from bluebee import BlueBee
+from fire_place import FirePlace
+from water_source import WaterSource
+from food_source import FoodSource
 
 
 class BlueBeeExperiment:
@@ -19,6 +22,9 @@ class BlueBeeExperiment:
         pygame.display.set_caption("BlueBee Experiment")
 
         self.bluebee = BlueBee(self)
+        self.fire_place = FirePlace(self)
+        self.water_source = WaterSource(self)
+        self.food_source = FoodSource(self)
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -77,6 +83,9 @@ class BlueBeeExperiment:
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
         self.bluebee.blitme()
+        self.fire_place.blitme()
+        self.water_source.blitme()
+        self.food_source.blitme()
 
         # Make the most recently drawn screen visible
         pygame.display.flip()

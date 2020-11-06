@@ -19,9 +19,9 @@ class BlueBee:
 
         # Store a decimal value for BlueBee's position.
         self.x = float(self.rect.x)
-        #print(self.x)
+
         self.y = float(self.rect.y)
-        #print(self.y)
+
         # Movement flags.
         self.moving_left = False
         self.moving_right = False
@@ -31,18 +31,18 @@ class BlueBee:
     def update_movement(self):
         if self.moving_left and self.rect.left > 0:
             self.x -= self.settings.bb_speed
-            #print("left : ",self.x)
+
         if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.bb_speed
-            #print("right : ", self.x)
+
         self.rect.x = self.x
 
         if self.moving_up and self.rect.top > 0:
             self.y -= self.settings.bb_speed
-            #print("up : ", self.y)
+
         if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
             self.y += self.settings.bb_speed
-            #print("down : ", self.y)
+
         self.rect.y = self.y
 
     def blitme(self):
