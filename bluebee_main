@@ -3,6 +3,9 @@ import pygame
 
 from settings import Settings
 from bluebee import BlueBee
+from fire_place import FirePlace
+from water_source import WaterSource
+from food_source import FoodSource
 
 
 class BlueBeeExperiment:
@@ -19,11 +22,17 @@ class BlueBeeExperiment:
         pygame.display.set_caption("BlueBee Experiment")
 
         self.bluebee = BlueBee(self)
+        self.fire_place = FirePlace(self)
+        self.water_source = WaterSource(self)
+        self.food_source = FoodSource(self)
 
     def run_game(self):
         """Start the main loop for the game."""
         while True:
             self._check_events()
+
+            self._bb_update_test()
+            self.bluebee.update_movement()
 
             self._update_screen()
 
@@ -39,10 +48,44 @@ class BlueBeeExperiment:
         """Respond to key presses."""
         if event.key == pygame.K_ESCAPE:
             sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self.bluebee.moving_left = True
+
+    def _bb_update_test(self):
+        if self.bluebee.moving_left and self.settings.counter < 400:
+            self.settings.counter += 1
+            if self.settings.counter + 1 == 400:
+                self.bluebee.moving_left = False
+                self.bluebee.moving_up = True
+                self.settings.counter = 0
+
+        if self.bluebee.moving_up and self.settings.counter < 300:
+            self.settings.counter += 1
+            if self.settings.counter + 1 == 300:
+                self.bluebee.moving_up = False
+                self.bluebee.moving_right = True
+                self.settings.counter = 0
+
+        if self.bluebee.moving_right and self.settings.counter < 400:
+            self.settings.counter += 1
+            if self.settings.counter + 1 == 400:
+                self.bluebee.moving_right = False
+                self.bluebee.moving_down = True
+                self.settings.counter = 0
+
+        if self.bluebee.moving_down and self.settings.counter < 300:
+            self.settings.counter += 1
+            if self.settings.counter + 1 == 300:
+                self.bluebee.moving_down = False
+                self.bluebee.moving_left = True
+                self.settings.counter = 0
 
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
         self.bluebee.blitme()
+        self.fire_place.blitme()
+        self.water_source.blitme()
+        self.food_source.blitme()
 
         # Make the most recently drawn screen visible
         pygame.display.flip()

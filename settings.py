@@ -10,3 +10,10 @@ class Settings:
 
         # Bluebee Settings
         self.bb_speed = 1.0
+
+        # Moving test.
+        self.counter = 0
+        self.max_left = 400
+        self.max_up = 300
+        self.max_right = 400
+        self.max_down = 300
